@@ -3,9 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Send, Loader, Bot, AlertCircle } from "lucide-react"
-import axios from "axios"
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000"
+import api from "@/lib/api"
 
 export default function ChatbotComponent() {
     const [messages, setMessages] = useState([
@@ -38,8 +36,8 @@ export default function ChatbotComponent() {
                 .map(msg => ({ role: msg.role, content: msg.content }))
 
             // Call backend API
-            const response = await axios.post(
-                `${API_URL}/api/chatbot/message`,
+            const response = await api.post(
+                "/chatbot/message",
                 {
                     message: userMessage,
                     conversationHistory: conversationHistory
