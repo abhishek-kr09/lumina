@@ -17,8 +17,17 @@ export default function Navbar() {
         { href: '/community', label: 'Community' },
         { href: '/counseling', label: 'Counseling' },
         { href: '/emergency', label: 'Emergency' },
-        { href: '/admin', label: 'Admin' },
     ]
+
+    const roleLinks = []
+    if (user?.role === 'admin') {
+        roleLinks.push({ href: '/admin', label: 'Admin' })
+    }
+    if (user?.role === 'counselor') {
+        roleLinks.push({ href: '/counselor-dashboard', label: 'Counselor Dashboard' })
+    }
+
+    const visibleLinks = [...links, ...roleLinks]
 
     return (
         <nav className="sticky top-0 z-50 bg-card/80 backdrop-blur-md border-b border-border shadow-lg">
@@ -33,7 +42,7 @@ export default function Navbar() {
 
                     {/* Desktop Menu */}
                     <div className="hidden md:flex gap-1 items-center">
-                        {links.map((link) => (
+                        {visibleLinks.map((link) => (
                             <Link
                                 key={link.href}
                                 to={link.href}
@@ -71,7 +80,7 @@ export default function Navbar() {
                 {/* Mobile Menu */}
                 {isOpen && (
                     <div className="md:hidden pb-4 space-y-2">
-                        {links.map((link) => (
+                        {visibleLinks.map((link) => (
                             <Link
                                 key={link.href}
                                 to={link.href}

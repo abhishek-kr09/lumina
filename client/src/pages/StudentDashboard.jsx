@@ -112,11 +112,17 @@ export default function StudentDashboard() {
                                         <div>
                                             <h4 className="font-semibold">{apt.counselorId?.name || "Counselor"}</h4>
                                             <p className="text-sm text-muted-foreground">{apt.counselorId?.email}</p>
+                                            <p className="text-sm text-muted-foreground">Contact: {apt.contactPhone || 'Not provided'}</p>
                                             <div className="flex items-center gap-2 mt-1 text-sm">
                                                 <span>{new Date(apt.date).toLocaleDateString()}</span>
                                                 <span>•</span>
                                                 <span>{apt.time}</span>
                                             </div>
+                                            {apt.isPrivate && (
+                                                <span className="inline-flex mt-2 px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">
+                                                    Private Session
+                                                </span>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-4 w-full md:w-auto justify-between md:justify-end">

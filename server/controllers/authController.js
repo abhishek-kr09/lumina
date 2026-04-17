@@ -21,7 +21,7 @@ const registerUser = async (req, res) => {
 
         // 1. Admin Restriction
         if (role === 'admin') {
-            const allowedAdmins = ['retik', 'harmeet', 'abhishek'];
+            const allowedAdmins = ['abhishek'];
             const lowerName = name.toLowerCase();
             const isAllowed = allowedAdmins.some(admin => lowerName.includes(admin));
 

@@ -24,6 +24,25 @@ const protect = async (req, res, next) => {
     }
 };
 
+const optionalProtect = async (req, res, next) => {
+    let token;
+
+    if (
+        req.headers.authorization &&
+        req.headers.authorization.startsWith('Bearer')
+    ) {
+        try {
+            token = req.headers.authorization.split(' ')[1];
+            const decoded = jwt.verify(token, process.env.JWT_SECRET || 'dev-secret-123');
+            req.user = await User.findById(decoded.id).select('-password');
+        } catch (error) {
+            req.user = null;
+        }
+    }
+
+    next();
+};
+
 const restrictTo = (...roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user.role)) {
@@ -36,4 +55,4 @@ const restrictTo = (...roles) => {
     };
 };
 
-module.exports = { protect, restrictTo };
+module.exports = { protect, optionalProtect, restrictTo };

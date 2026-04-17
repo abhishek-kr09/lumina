@@ -205,6 +205,8 @@ export default function AdminComponent() {
                                         <TableHead>Counselor</TableHead>
                                         <TableHead>Date</TableHead>
                                         <TableHead>Time</TableHead>
+                                        <TableHead>Contact</TableHead>
+                                        <TableHead>Privacy</TableHead>
                                         <TableHead>Status</TableHead>
                                     </TableRow>
                                 </TableHeader>
@@ -221,6 +223,18 @@ export default function AdminComponent() {
                                             </TableCell>
                                             <TableCell>{new Date(apt.date).toLocaleDateString()}</TableCell>
                                             <TableCell>{apt.time}</TableCell>
+                                            <TableCell>{apt.contactPhone || 'N/A'}</TableCell>
+                                            <TableCell>
+                                                {apt.isPrivate ? (
+                                                    <span className="px-2 py-1 rounded text-xs uppercase font-bold bg-purple-100 text-purple-800">
+                                                        Private
+                                                    </span>
+                                                ) : (
+                                                    <span className="px-2 py-1 rounded text-xs uppercase font-bold bg-gray-100 text-gray-700">
+                                                        Standard
+                                                    </span>
+                                                )}
+                                            </TableCell>
                                             <TableCell>
                                                 <span className={`px-2 py-1 rounded text-xs uppercase font-bold
                                                     ${apt.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : ''}
@@ -235,7 +249,7 @@ export default function AdminComponent() {
                                     ))}
                                     {appointments.length === 0 && (
                                         <TableRow>
-                                            <TableCell colSpan={5} className="text-center text-muted-foreground h-24">
+                                            <TableCell colSpan={7} className="text-center text-muted-foreground h-24">
                                                 No appointments found.
                                             </TableCell>
                                         </TableRow>

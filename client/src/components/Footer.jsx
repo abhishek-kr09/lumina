@@ -77,7 +77,7 @@ export default function Footer() {
                     </div>
                 </div>
                 <div className="border-t border-border pt-8 text-center text-sm text-muted-foreground">
-                    <p>&copy; 2025 Lumina. All rights reserved. Supporting mental wellness for everyone.</p>
+                    <p>&copy; 2026 Lumina. All rights reserved. Supporting mental wellness for everyone.</p>
                 </div>
             </div>
         </footer>

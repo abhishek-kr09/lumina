@@ -23,6 +23,15 @@ const appointmentSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    contactPhone: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    isPrivate: {
+        type: Boolean,
+        default: false,
+    },
     status: {
         type: String,
         enum: ['pending', 'approved', 'rejected', 'completed'],

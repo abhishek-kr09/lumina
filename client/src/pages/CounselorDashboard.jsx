@@ -140,6 +140,15 @@ export default function CounselorDashboard() {
                                                         <span className="font-medium">Concern: </span>
                                                         {apt.concern}
                                                     </div>
+                                                    <div className="mt-2 text-sm bg-muted/40 p-2 rounded">
+                                                        <span className="font-medium">Contact: </span>
+                                                        {apt.contactPhone || 'Not provided'}
+                                                    </div>
+                                                    {apt.isPrivate && (
+                                                        <div className="mt-2 inline-flex px-2 py-1 rounded text-xs font-medium bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300">
+                                                            Private Session
+                                                        </div>
+                                                    )}
                                                 </div>
                                             </div>
 

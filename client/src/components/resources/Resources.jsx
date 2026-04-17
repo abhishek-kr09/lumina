@@ -178,6 +178,12 @@ export default function ResourcesComponent() {
         )
     }
 
+    const closeAllModals = () => {
+        setActiveVideo(null)
+        setActiveExercise(null)
+        setActiveStrategy(null)
+    }
+
     useEffect(() => {
         const query = searchTerm.trim()
         if (!query) return
@@ -196,10 +202,28 @@ export default function ResourcesComponent() {
         }
     }, [searchTerm, activeTab])
 
+    useEffect(() => {
+        const onKeyDown = (event) => {
+            if (event.key === "Escape") {
+                closeAllModals()
+            }
+        }
+
+        window.addEventListener("keydown", onKeyDown)
+        return () => window.removeEventListener("keydown", onKeyDown)
+    }, [])
+
     return (
         <div className="space-y-8">
             {activeVideo && (
-                <div className="fixed inset-0 z-50 bg-black/70 p-4 flex items-center justify-center">
+                <div
+                    className="fixed inset-0 z-50 bg-black/70 p-4 flex items-center justify-center"
+                    onClick={(e) => {
+                        if (e.target === e.currentTarget) {
+                            setActiveVideo(null)
+                        }
+                    }}
+                >
                     <Card className="w-full max-w-4xl p-4 md:p-6 bg-card border-border">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg md:text-xl font-semibold text-foreground">{activeVideo.title}</h3>
@@ -227,7 +251,14 @@ export default function ResourcesComponent() {
             )}
 
             {activeExercise && (
-                <div className="fixed inset-0 z-50 bg-black/70 p-4 flex items-center justify-center">
+                <div
+                    className="fixed inset-0 z-50 bg-black/70 p-4 flex items-center justify-center"
+                    onClick={(e) => {
+                        if (e.target === e.currentTarget) {
+                            setActiveExercise(null)
+                        }
+                    }}
+                >
                     <Card className="w-full max-w-3xl p-4 md:p-6 bg-card border-border max-h-[85vh] overflow-y-auto">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg md:text-xl font-semibold text-foreground">{activeExercise.title}</h3>
@@ -255,7 +286,14 @@ export default function ResourcesComponent() {
             )}
 
             {activeStrategy && (
-                <div className="fixed inset-0 z-50 bg-black/70 p-4 flex items-center justify-center">
+                <div
+                    className="fixed inset-0 z-50 bg-black/70 p-4 flex items-center justify-center"
+                    onClick={(e) => {
+                        if (e.target === e.currentTarget) {
+                            setActiveStrategy(null)
+                        }
+                    }}
+                >
                     <Card className="w-full max-w-3xl p-4 md:p-6 bg-card border-border max-h-[85vh] overflow-y-auto">
                         <div className="flex items-center justify-between mb-4">
                             <h3 className="text-lg md:text-xl font-semibold text-foreground">{activeStrategy.title}</h3>
