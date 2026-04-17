@@ -11,16 +11,26 @@ const app = express();
 // Middleware
 app.use(express.json());
 
-const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
+const normalizeOrigin = (origin) => origin.replace(/\/+$/, '');
+
+const envOrigins = (process.env.CLIENT_URL || '')
     .split(',')
     .map((origin) => origin.trim())
-    .filter(Boolean);
+    .filter(Boolean)
+    .map(normalizeOrigin);
+
+const localDevOrigins = ['http://localhost:5173', 'http://127.0.0.1:5173'].map(normalizeOrigin);
+
+const allowedOrigins = Array.from(new Set([
+    ...envOrigins,
+    ...(process.env.NODE_ENV === 'production' ? [] : localDevOrigins),
+]));
 
 app.use(cors({
     origin: (origin, callback) => {
         // Allow tools/postman/server-to-server calls without Origin header.
         if (!origin) return callback(null, true);
-        if (allowedOrigins.includes(origin)) return callback(null, true);
+        if (allowedOrigins.includes(normalizeOrigin(origin))) return callback(null, true);
         return callback(new Error('Not allowed by CORS'));
     },
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
