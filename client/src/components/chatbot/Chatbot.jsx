@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
@@ -12,6 +12,20 @@ export default function ChatbotComponent() {
     const [input, setInput] = useState("")
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState(null)
+    const messageListRef = useRef(null)
+    const shouldUseSmoothScrollRef = useRef(false)
+
+    useEffect(() => {
+        if (!messageListRef.current) return
+
+        const behavior = shouldUseSmoothScrollRef.current ? "smooth" : "auto"
+        messageListRef.current.scrollTo({
+            top: messageListRef.current.scrollHeight,
+            behavior,
+        })
+
+        shouldUseSmoothScrollRef.current = true
+    }, [messages, isLoading])
 
     const quickSuggestions = [
         "I'm feeling anxious",
@@ -74,20 +88,20 @@ export default function ChatbotComponent() {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
             {error && (
                 <div className="bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-lg flex items-center gap-2 text-sm">
                     <AlertCircle className="w-4 h-4" />
                     <span>{error}</span>
                 </div>
             )}
-            <Card className="h-[500px] flex flex-col p-6 bg-card/50 backdrop-blur border-border shadow-xl">
-                <div className="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar">
+            <Card className="h-[58vh] min-h-[360px] sm:h-[500px] flex flex-col p-3 sm:p-6 bg-card/50 backdrop-blur border-border shadow-xl rounded-2xl">
+                <div ref={messageListRef} className="flex-1 overflow-y-auto space-y-3 sm:space-y-4 pr-1 sm:pr-2 custom-scrollbar">
                     {messages.map((msg, i) => (
                         <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
-                            <div className={`flex items-end gap-2 max-w-[80%] ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
+                            <div className={`flex items-end gap-2 max-w-[88%] sm:max-w-[80%] ${msg.role === "user" ? "flex-row-reverse" : "flex-row"}`}>
                                 {msg.role === "assistant" && (
-                                    <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center shrink-0">
+                                    <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-primary flex items-center justify-center shrink-0">
                                         <Bot className="w-4 h-4 text-white" />
                                     </div>
                                 )}
@@ -95,7 +109,7 @@ export default function ChatbotComponent() {
                                     className={`px-4 py-3 rounded-2xl ${msg.role === "user"
                                             ? "bg-gradient-primary text-white rounded-br-none"
                                             : "bg-muted text-foreground rounded-bl-none"
-                                        }`}
+                                        } text-sm sm:text-base leading-relaxed break-words whitespace-pre-wrap`}
                                 >
                                     {msg.content}
                                 </div>
@@ -105,10 +119,10 @@ export default function ChatbotComponent() {
                     {isLoading && (
                         <div className="flex justify-start">
                             <div className="flex items-end gap-2">
-                                <div className="w-8 h-8 rounded-full bg-gradient-primary flex items-center justify-center shrink-0">
+                                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-primary flex items-center justify-center shrink-0">
                                     <Bot className="w-4 h-4 text-white" />
                                 </div>
-                                <div className="bg-muted text-foreground px-4 py-3 rounded-2xl rounded-bl-none flex gap-2 items-center">
+                                <div className="bg-muted text-foreground px-4 py-3 rounded-2xl rounded-bl-none flex gap-2 items-center text-sm sm:text-base">
                                     <Loader className="w-4 h-4 animate-spin" />
                                     <span className="text-sm">Thinking...</span>
                                 </div>
@@ -118,33 +132,33 @@ export default function ChatbotComponent() {
                 </div>
             </Card>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
                 {quickSuggestions.map((suggestion, i) => (
                     <Button
                         key={i}
                         variant="outline"
                         size="sm"
                         onClick={() => handleSendMessage(suggestion)}
-                        className="text-left justify-start h-auto py-3 px-4 text-sm hover:border-primary/50 transition-colors"
+                        className="text-left justify-start h-auto py-3 px-4 text-sm whitespace-normal break-words hover:border-primary/50 transition-colors"
                     >
                         {suggestion}
                     </Button>
                 ))}
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-2 sm:gap-3 items-center">
                 <Input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    onKeyPress={(e) => e.key === "Enter" && handleSendMessage(input)}
+                    onKeyDown={(e) => e.key === "Enter" && handleSendMessage(input)}
                     placeholder="Type your message..."
                     disabled={isLoading}
-                    className="h-12 border-border focus-visible:ring-primary/50"
+                    className="h-11 sm:h-12 border-border focus-visible:ring-primary/50 text-base"
                 />
                 <Button
                     onClick={() => handleSendMessage(input)}
                     disabled={isLoading}
-                    className="h-12 w-12 rounded-xl bg-gradient-primary hover:opacity-90"
+                    className="h-11 w-11 sm:h-12 sm:w-12 shrink-0 rounded-xl bg-gradient-primary hover:opacity-90"
                 >
                     <Send className="w-5 h-5" />
                 </Button>
