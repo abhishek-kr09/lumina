@@ -10,7 +10,22 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+
+const allowedOrigins = (process.env.CLIENT_URL || 'http://localhost:5173')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+app.use(cors({
+    origin: (origin, callback) => {
+        // Allow tools/postman/server-to-server calls without Origin header.
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) return callback(null, true);
+        return callback(new Error('Not allowed by CORS'));
+    },
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    credentials: false,
+}));
 
 // Connect to Database
 const connectDB = async () => {

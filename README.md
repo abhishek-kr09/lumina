@@ -68,6 +68,13 @@ PORT=5000
 MONGO_URI=mongodb://127.0.0.1:27017/lumina
 JWT_SECRET=replace_with_a_strong_secret
 GROQ_API_KEY=replace_with_your_groq_key
+CLIENT_URL=http://localhost:5173
+```
+
+Create a `.env` file in `client/`:
+
+```env
+VITE_API_BASE_URL=http://localhost:5000/api
 ```
 
 Groq keys can be generated from https://console.groq.com.
@@ -149,3 +156,24 @@ Base URL: `http://localhost:5000/api`
 ## License
 
 ISC
+
+## Deployment Guide
+
+Use this order to avoid CORS and Axios base URL issues:
+
+1. Deploy backend first (Render/Railway/Fly/EC2/etc).
+2. Copy backend public URL (example: `https://lumina-api.onrender.com`).
+3. Set frontend env `VITE_API_BASE_URL` to `https://lumina-api.onrender.com/api`.
+4. Deploy frontend (Vercel/Netlify/etc).
+5. Copy frontend public URL (example: `https://lumina-app.vercel.app`).
+6. Set backend env `CLIENT_URL` to frontend URL.
+  - For multiple frontend domains, use comma-separated values:
+  - `CLIENT_URL=https://lumina-app.vercel.app,https://www.lumina-app.vercel.app`
+7. Redeploy backend after updating `CLIENT_URL`.
+8. Test login, protected routes, and booking flow.
+
+### CORS and Axios notes
+
+- Backend CORS now only allows origins listed in `CLIENT_URL`.
+- Frontend Axios now reads `VITE_API_BASE_URL` (with localhost fallback for local dev).
+- Do not keep frontend Axios hardcoded to localhost in production.
