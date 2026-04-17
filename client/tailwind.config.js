@@ -8,30 +8,29 @@ export default {
     theme: {
         extend: {
             colors: {
-                // Earkick-inspired light theme colors
-                background: '#ffffff',
-                foreground: '#0f172a',
-                card: '#ffffff',
-                'card-foreground': '#0f172a',
+                background: 'hsl(var(--background) / <alpha-value>)',
+                foreground: 'hsl(var(--foreground) / <alpha-value>)',
+                card: 'hsl(var(--card) / <alpha-value>)',
+                'card-foreground': 'hsl(var(--card-foreground) / <alpha-value>)',
                 primary: {
-                    DEFAULT: '#a855f7', // Purple
-                    foreground: '#ffffff',
+                    DEFAULT: 'hsl(var(--primary) / <alpha-value>)',
+                    foreground: 'hsl(var(--primary-foreground) / <alpha-value>)',
                 },
                 secondary: {
-                    DEFAULT: '#ec4899', // Pink
-                    foreground: '#ffffff',
+                    DEFAULT: 'hsl(var(--secondary) / <alpha-value>)',
+                    foreground: 'hsl(var(--secondary-foreground) / <alpha-value>)',
                 },
                 muted: {
-                    DEFAULT: '#f1f5f9',
-                    foreground: '#64748b',
+                    DEFAULT: 'hsl(var(--muted) / <alpha-value>)',
+                    foreground: 'hsl(var(--muted-foreground) / <alpha-value>)',
                 },
                 accent: {
-                    DEFAULT: '#f3e8ff',
-                    foreground: '#a855f7',
+                    DEFAULT: 'hsl(var(--accent) / <alpha-value>)',
+                    foreground: 'hsl(var(--accent-foreground) / <alpha-value>)',
                 },
-                border: '#e2e8f0',
-                input: '#e2e8f0',
-                ring: '#a855f7',
+                border: 'hsl(var(--border) / <alpha-value>)',
+                input: 'hsl(var(--input) / <alpha-value>)',
+                ring: 'hsl(var(--ring) / <alpha-value>)',
             },
             fontFamily: {
                 sans: ['Poppins', 'sans-serif'],

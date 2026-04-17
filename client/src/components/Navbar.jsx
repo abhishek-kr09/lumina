@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { Menu, X, Heart } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
 import ProfileDropdown from './ProfileDropdown'
+import ThemeToggle from './ThemeToggle'
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false)
@@ -41,6 +42,7 @@ export default function Navbar() {
                                 {link.label}
                             </Link>
                         ))}
+                        <ThemeToggle />
                         {user ? (
                             <ProfileDropdown />
                         ) : (
@@ -54,12 +56,16 @@ export default function Navbar() {
                     </div>
 
                     {/* Mobile Menu Button */}
-                    <button
-                        className="md:hidden p-2 rounded-lg hover:bg-primary/10 transition-colors"
-                        onClick={() => setIsOpen(!isOpen)}
-                    >
-                        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-                    </button>
+                    <div className="md:hidden flex items-center gap-1">
+                        <ThemeToggle />
+                        <button
+                            className="p-2 rounded-lg hover:bg-primary/10 transition-colors"
+                            onClick={() => setIsOpen(!isOpen)}
+                            aria-label={isOpen ? 'Close menu' : 'Open menu'}
+                        >
+                            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                        </button>
+                    </div>
                 </div>
 
                 {/* Mobile Menu */}
