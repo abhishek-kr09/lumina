@@ -1,4 +1,5 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import Home from './pages/Home'
 import Chatbot from './pages/Chatbot'
 import Assessment from './pages/Assessment'
@@ -29,9 +30,20 @@ function RequireRole({ allowedRoles, children }) {
     return children
 }
 
+function ScrollToTopOnRouteChange() {
+    const { pathname } = useLocation()
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    }, [pathname])
+
+    return null
+}
+
 function App() {
     return (
         <AuthProvider>
+            <ScrollToTopOnRouteChange />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />

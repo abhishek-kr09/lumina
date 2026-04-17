@@ -41,12 +41,12 @@ export default function Navbar() {
                     </Link>
 
                     {/* Desktop Menu */}
-                    <div className="hidden md:flex gap-1 items-center">
+                    <div className="hidden lg:flex gap-1 items-center">
                         {visibleLinks.map((link) => (
                             <Link
                                 key={link.href}
                                 to={link.href}
-                                className="px-4 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-gradient-primary hover:text-white transition-all duration-300"
+                                className="px-3 xl:px-4 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-gradient-primary hover:text-white transition-all duration-300 whitespace-nowrap"
                             >
                                 {link.label}
                             </Link>
@@ -57,7 +57,7 @@ export default function Navbar() {
                         ) : (
                             <Link
                                 to="/login"
-                                className="px-4 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-gradient-primary hover:text-white transition-all duration-300"
+                                className="px-3 xl:px-4 py-2 rounded-lg text-sm font-medium text-foreground hover:bg-gradient-primary hover:text-white transition-all duration-300"
                             >
                                 Login
                             </Link>
@@ -65,7 +65,7 @@ export default function Navbar() {
                     </div>
 
                     {/* Mobile Menu Button */}
-                    <div className="md:hidden flex items-center gap-1">
+                    <div className="lg:hidden flex items-center gap-1">
                         <ThemeToggle />
                         <button
                             className="p-2 rounded-lg hover:bg-primary/10 transition-colors"
@@ -79,7 +79,7 @@ export default function Navbar() {
 
                 {/* Mobile Menu */}
                 {isOpen && (
-                    <div className="md:hidden pb-4 space-y-2">
+                    <div className="lg:hidden pb-4 space-y-2">
                         {visibleLinks.map((link) => (
                             <Link
                                 key={link.href}

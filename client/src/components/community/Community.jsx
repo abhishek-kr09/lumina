@@ -359,14 +359,14 @@ export default function CommunityComponent() {
                             onChange={(e) => setNewPost(e.target.value)}
                             className="mb-4 border-primary/20 bg-background/50 min-h-[120px]"
                         />
-                        <div className="flex justify-between items-center gap-3">
+                        <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
                             <p className="text-xs text-muted-foreground">
                                 Your post will be anonymous and visible to everyone.
                             </p>
                             <Button
                                 onClick={handlePost}
                                 disabled={!newPost.trim()}
-                                className="bg-gradient-primary hover:opacity-90 text-white"
+                                className="bg-gradient-primary hover:opacity-90 text-white w-full sm:w-auto"
                             >
                                 Share with Community
                             </Button>
@@ -405,9 +405,9 @@ export default function CommunityComponent() {
                                 {myPosts.map((post) => (
                                     <div key={post._id} className="p-4 rounded-lg border border-border bg-card/50">
                                         <p className="text-foreground leading-relaxed">{post.content}</p>
-                                        <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground gap-2">
+                                        <div className="mt-3 flex flex-col sm:flex-row sm:items-center sm:justify-between text-xs text-muted-foreground gap-2">
                                             <span>{formatTime(post.createdAt)}</span>
-                                            <div className="flex items-center gap-2">
+                                            <div className="flex flex-wrap items-center gap-2">
                                                 <Button
                                                     variant="outline"
                                                     size="sm"

@@ -64,14 +64,14 @@ export default function Register() {
                 </CardHeader>
                 <CardContent>
                     <Tabs defaultValue="student" className="w-full" onValueChange={(value) => setRole(value)}>
-                        <TabsList className="grid w-full grid-cols-3 mb-6">
-                            <TabsTrigger value="student" className="flex items-center gap-2">
+                        <TabsList className="grid w-full grid-cols-3 mb-6 h-auto">
+                            <TabsTrigger value="student" className="flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 py-2">
                                 <GraduationCap className="w-4 h-4" /> Student
                             </TabsTrigger>
-                            <TabsTrigger value="counselor" className="flex items-center gap-2">
+                            <TabsTrigger value="counselor" className="flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 py-2">
                                 <User className="w-4 h-4" /> Counselor
                             </TabsTrigger>
-                            <TabsTrigger value="admin" className="flex items-center gap-2">
+                            <TabsTrigger value="admin" className="flex items-center justify-center gap-1 sm:gap-2 text-xs sm:text-sm px-2 py-2">
                                 <Shield className="w-4 h-4" /> Admin
                             </TabsTrigger>
                         </TabsList>

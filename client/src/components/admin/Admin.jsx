@@ -121,7 +121,7 @@ export default function AdminComponent() {
             </div>
 
             <Tabs defaultValue="appointments" className="w-full">
-                <TabsList className="mb-4">
+                <TabsList className="mb-4 w-full overflow-x-auto whitespace-nowrap flex-nowrap justify-start">
                     <TabsTrigger value="appointments">Appointments</TabsTrigger>
                     <TabsTrigger value="requests" className="relative">
                         Counselor Requests
@@ -161,7 +161,8 @@ export default function AdminComponent() {
                                                     {c.credentials}
                                                 </a>
                                             </TableCell>
-                                            <TableCell className="flex gap-2">
+                                            <TableCell className="min-w-[170px]">
+                                                <div className="flex flex-wrap gap-2">
                                                 <Button
                                                     size="sm"
                                                     className="bg-green-600 hover:bg-green-700 text-white"
@@ -176,6 +177,7 @@ export default function AdminComponent() {
                                                 >
                                                     Ignore
                                                 </Button>
+                                                </div>
                                             </TableCell>
                                         </TableRow>
                                     ))}
